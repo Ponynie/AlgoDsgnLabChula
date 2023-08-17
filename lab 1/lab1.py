@@ -117,13 +117,16 @@ times_gcd2 = []
 times_gcd3 = []
 line_count = 0
 
-file_path = "lab 1/Example_LAB_1.txt"
+file_path = "lab 1/Extra_Case3.txt"
 with open(file_path, "r") as file:
     for line in file:
         m, n = map(int, line.strip().split(","))
         times_gcd1.append(timeit.timeit("FindGCD1(m, n)", globals=globals(), number=1))
+        print(f"GCD1 of {m, n} is {FindGCD1(m, n)}")
         times_gcd2.append(timeit.timeit("FindGCD2(m, n)", globals=globals(), number=1))
+        print(f"GCD2 of {m, n} is {FindGCD2(m, n)}")
         times_gcd3.append(timeit.timeit("FindGCD3(m, n)", globals=globals(), number=1))
+        print(f"GCD3 of {m, n} is {FindGCD3(m, n)}")
         line_count += 1
 
 x_axis = [i + 1 for i in range(line_count)]
@@ -133,7 +136,7 @@ ax.plot(x_axis, times_gcd2, marker = "o", color = "red", label = "GCD2")
 ax.plot(x_axis, times_gcd3, marker = "o", color = "blue", label = "GCD3")
 ax.set_title("GCD Execution Time")
 ax.set_xlabel("Input Value")
-ax.set_ylabel("Execution Time ($\\mu$s)")
+ax.set_ylabel("Execution Time")
 #ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
 ax.grid(True)
 ax.legend()
