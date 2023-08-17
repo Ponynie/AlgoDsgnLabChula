@@ -1,5 +1,5 @@
 def naive_prime_factors(n):
-    factors = []
+    factors = [1]
     divisor = 2
     
     while n > 1:
