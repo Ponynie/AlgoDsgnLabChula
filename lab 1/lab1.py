@@ -112,8 +112,29 @@ def FindGCD3(m, n):
     else:
         return m 
 
+times_gcd1 = []
+times_gcd2 = []
+times_gcd3 = []
+line_count = 0
 
-input = (291, 97)
-print(FindGCD1(input[0], input[1]))
-print(FindGCD2(input[0], input[1]))
-print(FindGCD3(input[0], input[1]))
+file_path = "lab 1/Example_LAB_1.txt"
+with open(file_path, "r") as file:
+    for line in file:
+        m, n = map(int, line.strip().split(","))
+        times_gcd1.append(timeit.timeit("FindGCD1(m, n)", globals=globals(), number=1))
+        times_gcd2.append(timeit.timeit("FindGCD2(m, n)", globals=globals(), number=1))
+        times_gcd3.append(timeit.timeit("FindGCD3(m, n)", globals=globals(), number=1))
+        line_count += 1
+
+x_axis = [i + 1 for i in range(line_count)]
+fig, ax = plt.subplots()
+ax.plot(x_axis, times_gcd1, marker = "o", color = "green", label = "GCD1")
+ax.plot(x_axis, times_gcd2, marker = "o", color = "red", label = "GCD2")
+ax.plot(x_axis, times_gcd3, marker = "o", color = "blue", label = "GCD3")
+ax.set_title("GCD Execution Time")
+ax.set_xlabel("Input Value")
+ax.set_ylabel("Execution Time ($\\mu$s)")
+#ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
+ax.grid(True)
+ax.legend()
+plt.show()
