@@ -94,7 +94,6 @@ def FindGCD2(m, n):
     
     return product_common #Return product of common as GCD(m, n)
     
-
 def FindGCD3(m, n):
     #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
     m, n = abs(m), abs(n)
@@ -114,6 +113,7 @@ def FindGCD3(m, n):
         return m 
 
 
-input = (100, 36)
+input = (291, 97)
 print(FindGCD1(input[0], input[1]))
+print(FindGCD2(input[0], input[1]))
 print(FindGCD3(input[0], input[1]))
