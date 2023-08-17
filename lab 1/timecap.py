@@ -1,4 +1,6 @@
-deprecated
+import timeit
+import matplotlib.pyplot as plt
+#!deprecated
 
 input_list = [(5, 7), (7, 10), (10, 20)]
 time_list_I = []

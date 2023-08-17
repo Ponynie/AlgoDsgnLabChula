@@ -19,7 +19,7 @@ def prime_factors(n):
         while n % prime == 0:
             factors.append(prime)
             n //= prime
-  #      if n <= 1: break
+        if n <= 1: break
     return factors
 
 if __name__ == "__main__":
