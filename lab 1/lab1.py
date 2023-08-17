@@ -1,5 +1,6 @@
 import timeit
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def FindGCD1(m, n):
     #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
@@ -112,32 +113,39 @@ def FindGCD3(m, n):
     else:
         return m 
 
+#?Time-recorder-----------------------------------------------------------------------------------
 times_gcd1 = []
 times_gcd2 = []
 times_gcd3 = []
 line_count = 0
-
-file_path = "lab 1/Extra_Case3.txt"
+print("--------------------------------------------")
+file_path = "lab 1/Extra_Case4.txt"
 with open(file_path, "r") as file:
     for line in file:
         m, n = map(int, line.strip().split(","))
         times_gcd1.append(timeit.timeit("FindGCD1(m, n)", globals=globals(), number=1))
-        print(f"GCD1 of {m, n} is {FindGCD1(m, n)}")
+        print(f"GCD1-Naive of {m, n} is {FindGCD1(m, n)}")
         times_gcd2.append(timeit.timeit("FindGCD2(m, n)", globals=globals(), number=1))
-        print(f"GCD2 of {m, n} is {FindGCD2(m, n)}")
+        print(f"GCD2-Sieve of {m, n} is {FindGCD2(m, n)}")
         times_gcd3.append(timeit.timeit("FindGCD3(m, n)", globals=globals(), number=1))
-        print(f"GCD3 of {m, n} is {FindGCD3(m, n)}")
+        print(f"GCD3-Eucli of {m, n} is {FindGCD3(m, n)}")
         line_count += 1
+        print("--------------------------------------------")
+#?Export-to-csv-in-microsec------------------------------------------------------------------------    
+data = pd.DataFrame({"Naive GCD1": times_gcd1, "Sieve GCD2": times_gcd2, "Eucli GCD3": times_gcd3})
+data = data * 10**6
+data.to_csv("lab 1/GCD_time_execution.csv")
 
+#?Graph-plot---------------------------------------------------------------------------------------
 x_axis = [i + 1 for i in range(line_count)]
 fig, ax = plt.subplots()
 ax.plot(x_axis, times_gcd1, marker = "o", color = "green", label = "GCD1")
 ax.plot(x_axis, times_gcd2, marker = "o", color = "red", label = "GCD2")
 ax.plot(x_axis, times_gcd3, marker = "o", color = "blue", label = "GCD3")
 ax.set_title("GCD Execution Time")
-ax.set_xlabel("Input Value")
+ax.set_xlabel("Input Sequences")
 ax.set_ylabel("Execution Time")
-#ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
 ax.grid(True)
 ax.legend()
 plt.show()
