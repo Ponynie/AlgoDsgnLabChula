@@ -40,4 +40,28 @@ def FindGCD1(m, n):
     
     return product_common #Return product of common as GCD(m, n)
 
-print(FindGCD1(111, 234))
+def FindGCD2(m, n):
+    pass
+
+def FindGCD3(m, n):
+    #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
+    m, n = abs(m), abs(n)
+    if m == 0 and n == 0:
+        return 0
+    elif m == 0 : 
+        return n
+    elif n == 0 : 
+        return m
+    
+    #?Call-recursive----------------------------------------------------------------
+    if m > n:
+        return FindGCD3(m % n, n)
+    elif m < n:
+        return FindGCD3(m, n % m)
+    else:
+        return m 
+
+
+input = (100, 36)
+print(FindGCD1(input[0], input[1]))
+print(FindGCD3(input[0], input[1]))
