@@ -136,37 +136,46 @@ print("--------------------------------------------")
 
 file_path = "lab 1/Extra Case1.txt" #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUT FILE PATH HERE !!!!!!!!!!!
 
-with open(file_path, "r") as file:
-    for line in file:
-        input_list = list(map(int, line.strip().split(",")))
-        times_gcd1.append(timeit.timeit("multiple_parameters_GCD(FindGCD1, input_list)", globals=globals(), number=1))
-        print(f"GCD1-Naive of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
-        times_gcd2.append(timeit.timeit("multiple_parameters_GCD(FindGCD2, input_list)", globals=globals(), number=1))
-        print(f"GCD2-Sieve of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD2, input_list)}")
-        times_gcd3.append(timeit.timeit("multiple_parameters_GCD(FindGCD3, input_list)", globals=globals(), number=1))
-        print(f"GCD3-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD3, input_list)}")
-        line_count += 1
-        print("--------------------------------------------")
-'''       
-#?Export-to-csv-in-microsec------------------------------------------------------------------------    
-data = pd.DataFrame({"Naive GCD1": times_gcd1, "Sieve GCD2": times_gcd2, "Eucli GCD3": times_gcd3})
-data = data * 10**6
-data.to_csv("lab 1/GCD_time_execution.csv")
-'''
-#?Graph-plot---------------------------------------------------------------------------------------
-x_axis = [i + 1 for i in range(line_count)]
-fig, ax = plt.subplots()
-ax.plot(x_axis, times_gcd1, color = "green", label = "GCD1")
-ax.plot(x_axis, times_gcd2, color = "red", label = "GCD2")
-ax.plot(x_axis, times_gcd3, color = "blue", label = "GCD3")
-ax.set_title("GCD Execution Time")
-ax.set_xlabel("Input Sequences")
-ax.set_ylabel("Execution Time")
-#ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
-ax.grid(True)
-ax.legend()
-plt.show()
+try:
+    with open(file_path, "r") as file:
+        for line in file:
+            input_list = list(map(int, line.strip().split(",")))
+            times_gcd1.append(timeit.timeit("multiple_parameters_GCD(FindGCD1, input_list)", globals=globals(), number=1))
+            print(f"GCD1-Naive of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
+            times_gcd2.append(timeit.timeit("multiple_parameters_GCD(FindGCD2, input_list)", globals=globals(), number=1))
+            print(f"GCD2-Sieve of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD2, input_list)}")
+            times_gcd3.append(timeit.timeit("multiple_parameters_GCD(FindGCD3, input_list)", globals=globals(), number=1))
+            print(f"GCD3-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD3, input_list)}")
+            line_count += 1
+            print("--------------------------------------------")
+#?Export-to-csv-in-microsec----------------------------------------------------------------------------
+    '''
+    data = pd.DataFrame({"Naive GCD1": times_gcd1, "Sieve GCD2": times_gcd2, "Eucli GCD3": times_gcd3})
+    data = data * 10**6
+    data.to_csv("lab 1/GCD_time_execution.csv")
+    '''
+#?Graph-plot--------------------------------------------------------------------------------------------
+    x_axis = [i + 1 for i in range(line_count)]
+    fig, ax = plt.subplots()
+    ax.plot(x_axis, times_gcd1, color = "green", label = "GCD1")
+    ax.plot(x_axis, times_gcd2, color = "red", label = "GCD2")
+    ax.plot(x_axis, times_gcd3, color = "blue", label = "GCD3")
+    ax.set_title("GCD Execution Time")
+    ax.set_xlabel("Input Sequences")
+    ax.set_ylabel("Execution Time")
+    #ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
+    ax.grid(True)
+    ax.legend()
+    plt.show()
 
-
+#?If-file-is-not-found----------------------------------------------------------------------------------
+except FileNotFoundError:
+    print("File not found, Switching to manually input mode")
+    single = input("Enter number as x, y or x, y, z,... ")
+    input_list = list(map(int, single.strip().split(",")))
+    print(f"GCD1-Naive of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
+    print(f"GCD2-Sieve of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD2, input_list)}")
+    print(f"GCD3-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD3, input_list)}")
+    print("--------------------------------------------")
             
             
