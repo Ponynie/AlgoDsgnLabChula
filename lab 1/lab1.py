@@ -1,6 +1,6 @@
 import timeit
 import matplotlib.pyplot as plt
-import pandas as pd
+#import pandas as pd
 
 def FindGCD1(m: int, n: int) -> int:
     #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
@@ -127,13 +127,15 @@ def multiple_parameters_GCD(gcd_func: callable, gcd_list: list) -> int:
             j += 1
         return multiple_parameters_GCD(gcd_func, small_gcd_list)
     
-#?Time-recorder-----------------------------------------------------------------------------------
+#?Time-recorder-and-input-file-------------------------------------------------------------------
 times_gcd1 = []
 times_gcd2 = []
 times_gcd3 = []
 line_count = 0
 print("--------------------------------------------")
-file_path = "lab 1/Case1.txt"
+
+file_path = "lab 1/Extra Case1.txt" #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUT FILE PATH HERE !!!!!!!!!!!
+
 with open(file_path, "r") as file:
     for line in file:
         input_list = list(map(int, line.strip().split(",")))
@@ -145,12 +147,12 @@ with open(file_path, "r") as file:
         print(f"GCD3-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD3, input_list)}")
         line_count += 1
         print("--------------------------------------------")
-        
+'''       
 #?Export-to-csv-in-microsec------------------------------------------------------------------------    
 data = pd.DataFrame({"Naive GCD1": times_gcd1, "Sieve GCD2": times_gcd2, "Eucli GCD3": times_gcd3})
 data = data * 10**6
 data.to_csv("lab 1/GCD_time_execution.csv")
-
+'''
 #?Graph-plot---------------------------------------------------------------------------------------
 x_axis = [i + 1 for i in range(line_count)]
 fig, ax = plt.subplots()
