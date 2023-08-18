@@ -2,7 +2,7 @@ import timeit
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def FindGCD1(m, n):
+def FindGCD1(m: int, n: int) -> int:
     #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
     m, n = abs(m), abs(n)
     if m == 0 and n == 0:
@@ -11,8 +11,9 @@ def FindGCD1(m, n):
         return n
     elif n == 0 : 
         return m
+    
     #?Naive-prime-factorization-------------------------------------------------------------
-    def naive_prime_factors(n):
+    def naive_prime_factors(n: int) -> list:
         factors = [1]
         divisor = 2
         while n > 1:
@@ -41,7 +42,7 @@ def FindGCD1(m, n):
     
     return product_common #Return product of common as GCD(m, n)
 
-def FindGCD2(m, n):
+def FindGCD2(m: int, n: int) -> int:
     #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
     m, n = abs(m), abs(n)
     if m == 0 and n == 0:
@@ -52,7 +53,7 @@ def FindGCD2(m, n):
         return m
     
     #?Sieve-of-Eratosthenes-function------------------------------------------------------------
-    def sieve_of_eratosthenes(n):
+    def sieve_of_eratosthenes(n: int) -> int:
         prime = [True] * (n + 1)
         prime[0] = prime[1] = False
         
@@ -66,7 +67,7 @@ def FindGCD2(m, n):
         return [i for i in range(2, n + 1) if prime[i]]
     
     #?Sieve-optimized-prime-factorization--------------------------------------------------------
-    def sieve_prime_factors(n):
+    def sieve_prime_factors(n: int) -> int:
         primes = sieve_of_eratosthenes(n)
         factors = []
         
@@ -92,10 +93,10 @@ def FindGCD2(m, n):
             n_idx += 1
         elif prime_factors_m[m_idx] < prime_factors_n[n_idx]:
             m_idx += 1
-    
+
     return product_common #Return product of common as GCD(m, n)
     
-def FindGCD3(m, n):
+def FindGCD3(m: int, n: int) -> int:
     #*GCD(m, n) == GCD(|m|, |n|) for any number, GCD(0, 0) == 0, GCD(a, 0) == |a|
     m, n = abs(m), abs(n)
     if m == 0 and n == 0:
@@ -113,24 +114,38 @@ def FindGCD3(m, n):
     else:
         return m 
 
+#?For-accept-multiple-parameters-----------------------------------------------------------------
+def multiple_parameters_GCD(gcd_func: callable, gcd_list: list) -> int:
+    if len(gcd_list) == 2:
+        return gcd_func(gcd_list[0], gcd_list[1])
+    else:
+        small_gcd_list = []
+        i, j = 0, 1
+        while j < len(gcd_list):
+            small_gcd_list.append(multiple_parameters_GCD(gcd_func, gcd_list[i:j+1]))
+            i += 1
+            j += 1
+        return multiple_parameters_GCD(gcd_func, small_gcd_list)
+    
 #?Time-recorder-----------------------------------------------------------------------------------
 times_gcd1 = []
 times_gcd2 = []
 times_gcd3 = []
 line_count = 0
 print("--------------------------------------------")
-file_path = "lab 1/Extra_Case4.txt"
+file_path = "lab 1/Case1.txt"
 with open(file_path, "r") as file:
     for line in file:
-        m, n = map(int, line.strip().split(","))
-        times_gcd1.append(timeit.timeit("FindGCD1(m, n)", globals=globals(), number=1))
-        print(f"GCD1-Naive of {m, n} is {FindGCD1(m, n)}")
-        times_gcd2.append(timeit.timeit("FindGCD2(m, n)", globals=globals(), number=1))
-        print(f"GCD2-Sieve of {m, n} is {FindGCD2(m, n)}")
-        times_gcd3.append(timeit.timeit("FindGCD3(m, n)", globals=globals(), number=1))
-        print(f"GCD3-Eucli of {m, n} is {FindGCD3(m, n)}")
+        input_list = map(int, line.strip().split(","))
+        times_gcd1.append(timeit.timeit("multiple_parameters_GCD(FindGCD1, input_list)", globals=globals(), number=1))
+        print(f"GCD1-Naive of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
+        times_gcd2.append(timeit.timeit("multiple_parameters_GCD(FindGCD2, input_list)", globals=globals(), number=1))
+        print(f"GCD1-Sieve of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
+        times_gcd3.append(timeit.timeit("multiple_parameters_GCD(FindGCD3, input_list)", globals=globals(), number=1))
+        print(f"GCD1-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
         line_count += 1
         print("--------------------------------------------")
+        
 #?Export-to-csv-in-microsec------------------------------------------------------------------------    
 data = pd.DataFrame({"Naive GCD1": times_gcd1, "Sieve GCD2": times_gcd2, "Eucli GCD3": times_gcd3})
 data = data * 10**6
@@ -149,3 +164,7 @@ ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.7f}'))
 ax.grid(True)
 ax.legend()
 plt.show()
+
+
+            
+            
