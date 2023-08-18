@@ -136,7 +136,7 @@ print("--------------------------------------------")
 file_path = "lab 1/Case1.txt"
 with open(file_path, "r") as file:
     for line in file:
-        input_list = map(int, line.strip().split(","))
+        input_list = list(map(int, line.strip().split(",")))
         times_gcd1.append(timeit.timeit("multiple_parameters_GCD(FindGCD1, input_list)", globals=globals(), number=1))
         print(f"GCD1-Naive of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
         times_gcd2.append(timeit.timeit("multiple_parameters_GCD(FindGCD2, input_list)", globals=globals(), number=1))
