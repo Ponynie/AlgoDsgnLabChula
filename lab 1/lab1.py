@@ -140,9 +140,9 @@ with open(file_path, "r") as file:
         times_gcd1.append(timeit.timeit("multiple_parameters_GCD(FindGCD1, input_list)", globals=globals(), number=1))
         print(f"GCD1-Naive of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
         times_gcd2.append(timeit.timeit("multiple_parameters_GCD(FindGCD2, input_list)", globals=globals(), number=1))
-        print(f"GCD1-Sieve of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
+        print(f"GCD2-Sieve of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD2, input_list)}")
         times_gcd3.append(timeit.timeit("multiple_parameters_GCD(FindGCD3, input_list)", globals=globals(), number=1))
-        print(f"GCD1-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD1, input_list)}")
+        print(f"GCD3-Eucli of {tuple(input_list)} is {multiple_parameters_GCD(FindGCD3, input_list)}")
         line_count += 1
         print("--------------------------------------------")
         
