@@ -134,7 +134,7 @@ times_gcd3 = []
 line_count = 0
 print("--------------------------------------------")
 
-file_path = "lab 1/Extra Case1.txt" #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUT FILE PATH HERE !!!!!!!!!!!
+file_path = "lab1/test_case/Case1.txt" #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUT FILE PATH HERE !!!!!!!!!!!
 
 try:
     with open(file_path, "r") as file:
