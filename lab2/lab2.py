@@ -18,6 +18,15 @@ class Graph():
             
         self.size = self.matrix.shape[0]
         
+    @classmethod
+    def read_matrix(cls, file_path: str):
+        matrix = []
+        with open(file_path, 'r') as file:
+            for line in file:
+                row = list(map(int, line.strip().split()))
+                matrix.append(row)
+        return cls(matrix)
+        
     def __str__(self):
         data = pd.DataFrame(self.matrix, index = ["V" + str(i) for i in range(self.size)], columns = ["V" + str(i) for i in range(self.size)])
         return data.to_string() + "\n" + f"Undirected: {self.undirected}"
@@ -78,8 +87,7 @@ class Graph():
         pass
     
     
-    
-g = Graph([[1,0,1,0],[0,1,1,1],[0,0,1,1],[0,0,0,1]])
+
+g = Graph.read_matrix("lab2/test_case/2.1.2.txt")
 print(g)
 g.print_paths_DFS(0,3)
-#print(g.vertices_adjacent_to(1))
