@@ -25,22 +25,26 @@ class Graph():
     def __len__(self):
         return self.size
     
-    #?helper-method--------------------------------------------------------------------------
+    #?utility-method-------------------------------------------------------------------------
     def _vertices_adjacent_to(self, vertex: int) -> list:
         if not self.undirected:
             return [i for i in range(self.size) if self.matrix[vertex][i] != 0]
         else:
             return [i for i in range(vertex + 1, self.size) if self.matrix[vertex][i] != 0]
+    
+    #?recursive-hepler-method----------------------------------------------------------------
+    def _print_paths_RCS(self):
+        pass
+    
+    def _print_hamiltonians(self):
+        pass
         
     #?main-method----------------------------------------------------------------------------
-    def find_all_path(self, source: int, dest: int) -> list:
-        all_paths = []
+    def print_paths_DFS(self, source: int, dest: int) -> None:
         was_visited = np.zeros(self.size, dtype = bool)
         path = deque()
         stack = deque()
-        
         stack.append(source)
-        
         while len(stack) > 0:
             current_vertex = stack[-1]
             if not was_visited[current_vertex]: 
@@ -48,24 +52,34 @@ class Graph():
                 was_visited[current_vertex] = True
                 adjacent_vertices = self._vertices_adjacent_to(current_vertex)
                 if current_vertex == dest: 
-                    all_paths.append(path)
+                    print(f"One of the path from V{source} to V{dest} is {tuple(path)}")
                     was_visited[current_vertex] = False
                     stack.pop()
                     path.pop()
-                elif len(adjacent_vertices) == 0:
-                    stack.pop()
-                    path.pop()
-                    was_visited[current_vertex] = False
                 else:
+                    neighbors_count = 0
                     for vertex in adjacent_vertices:
                         if not was_visited[vertex]: 
                             stack.append(vertex)
+                            neighbors_count  += 1
+                    if neighbors_count == 0:
+                        stack.pop()
+                        path.pop()
+                        was_visited[current_vertex] = False  
             else:
                 stack.pop()
                 path.pop()
                 was_visited[current_vertex] = False
 
-
+    def print_paths_RCS(self):
+        pass
+    
+    def print_hamiltonians(self):
+        pass
+    
+    
+    
 g = Graph([[1,0,1,0],[0,1,1,1],[0,0,1,1],[0,0,0,1]])
 print(g)
+g.print_paths_DFS(0,3)
 #print(g.vertices_adjacent_to(1))
