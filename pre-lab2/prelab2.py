@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from collections import deque
 
 class Graph():
     
@@ -25,15 +26,46 @@ class Graph():
         return self.size
     
     #?helper-method--------------------------------------------------------------------------
-    def vertices_adjacent_to(self, vertex):
+    def _vertices_adjacent_to(self, vertex: int) -> list:
         if not self.undirected:
             return [i for i in range(self.size) if self.matrix[vertex][i] != 0]
         else:
             return [i for i in range(vertex + 1, self.size) if self.matrix[vertex][i] != 0]
         
     #?main-method----------------------------------------------------------------------------
-    
+    def find_all_path(self, source: int, dest: int) -> list:
+        all_paths = []
+        was_visited = np.zeros(self.size, dtype = bool)
+        path = deque()
+        stack = deque()
+        
+        stack.append(source)
+        
+        while len(stack) > 0:
+            current_vertex = stack[-1]
+            if not was_visited[current_vertex]: 
+                path.append(current_vertex)
+                was_visited[current_vertex] = True
+                adjacent_vertices = self._vertices_adjacent_to(current_vertex)
+                if current_vertex == dest: 
+                    all_paths.append(path)
+                    was_visited[current_vertex] = False
+                    stack.pop()
+                    path.pop()
+                elif len(adjacent_vertices) == 0:
+                    stack.pop()
+                    path.pop()
+                    was_visited[current_vertex] = False
+                else:
+                    for vertex in adjacent_vertices:
+                        if not was_visited[vertex]: 
+                            stack.append(vertex)
+            else:
+                stack.pop()
+                path.pop()
+                was_visited[current_vertex] = False
+
 
 g = Graph([[1,0,1,0],[0,1,1,1],[0,0,1,1],[0,0,0,1]])
 print(g)
-print(g.vertices_adjacent_to(1))
+#print(g.vertices_adjacent_to(1))
