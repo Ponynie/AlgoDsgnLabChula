@@ -39,16 +39,35 @@ class Graph():
         return [i for i in range(self.size) if self.matrix[vertex][i] != 0]
     
     #?recursive-hepler-method----------------------------------------------------------------
-    def _print_paths_RCS(self):
-        pass
-    
+    def _print_paths_RCS(self, current: int, dest: int) -> None:
+        self.path.append(current)
+        self.was_visited[current] = True
+        if current == dest: 
+            print(f"{tuple(self.path)}")
+            self.paths_count += 1
+            self.path.pop()
+            self.was_visited[current] = False
+            return
+        
+        for vertex in self._vertices_adjacent_to(current):
+            if not self.was_visited[vertex]:
+                self._print_paths_RCS(vertex, dest)
+        
+        self.path.pop()
+        self.was_visited[current] = False
+        return
+
     def _print_hamiltonians(self):
         pass
         
     #?main-method----------------------------------------------------------------------------
     def print_paths_DFS(self, source: int, dest: int) -> None:
-        print(f"All paths from V{source} to V{dest}: ")
+        print(f"All paths from V{source} to V{dest} using Depth-first-search method: ")
+        if source == dest:
+            print(f"0 paths, already in V{source}")
+            return
         was_visited = np.zeros(self.size, dtype = bool)
+        paths_count = 0
         path = deque()
         stack = deque()
         stack.append(source)
@@ -59,9 +78,10 @@ class Graph():
                 was_visited[current_vertex] = True
                 if current_vertex == dest: 
                     print(f"{tuple(path)}")
-                    was_visited[current_vertex] = False
+                    paths_count += 1
                     stack.pop()
                     path.pop()
+                    was_visited[current_vertex] = False
                 else:
                     neighbors_count = 0
                     for vertex in self._vertices_adjacent_to(current_vertex):
@@ -76,9 +96,26 @@ class Graph():
                 stack.pop()
                 path.pop()
                 was_visited[current_vertex] = False
-
-    def print_paths_RCS(self):
-        pass
+        if paths_count == 0: 
+            print("No possible paths")
+        else: 
+            print(f"{paths_count} paths")
+    
+    def print_paths_RCS(self, source: int, dest: int) -> None:
+        print(f"All paths from V{source} to V{dest} using Recursive method: ")
+        if source == dest:
+            print(f"0 paths, already in V{source}")
+            return
+        self.was_visited = np.zeros(self.size, dtype = bool)
+        self.paths_count = 0
+        self.path = deque()
+        self._print_paths_RCS(source, dest)
+        if self.paths_count == 0: 
+            print("No possible paths")
+        else: 
+            print(f"{self.paths_count} paths")
+        del self.was_visited; del self.paths_count; del self.path
+        
     
     def print_hamiltonians(self):
         pass
