@@ -46,7 +46,7 @@ class Graph():
         return True
             
     #?recursive-hepler-method----------------------------------------------------------------
-    def _print_paths_by_RCS(self, current: int, dest: int) -> None:
+    def _print_paths_RCS(self, current: int, dest: int) -> None:
         self.path.append(current)
         self.was_visited[current] = True
         if current == dest: 
@@ -58,14 +58,14 @@ class Graph():
         
         for vertex in self._vertices_adjacent_to(current):
             if not self.was_visited[vertex]:
-                self._print_paths_by_RCS(vertex, dest)
+                self._print_paths_RCS(vertex, dest)
         
         self.path.pop()
         self.was_visited[current] = False
         return
         
     #?main-method----------------------------------------------------------------------------
-    def print_paths_by_DFS(self, source: int, dest: int) -> None: #O((n-2)!)
+    def print_paths_DFS(self, source: int, dest: int) -> None: #O((n-2)!)
         print(f"All paths from V{source} to V{dest} using Depth-first-search method: ")
         if source == dest:
             print(f"0 paths, already in V{source}")
@@ -105,7 +105,7 @@ class Graph():
         else: 
             print(f"{paths_count} paths")
     
-    def print_paths_by_RCS(self, source: int, dest: int) -> None: #O((n-2)!)
+    def print_paths_RCS(self, source: int, dest: int) -> None: #O((n-2)!)
         print(f"All paths from V{source} to V{dest} using Recursive method: ")
         if source == dest:
             print(f"0 paths, already in V{source}")
@@ -113,7 +113,7 @@ class Graph():
         self.was_visited = np.zeros(self.size, dtype = bool)
         self.paths_count = 0
         self.path = deque()
-        self._print_paths_by_RCS(source, dest)
+        self._print_paths_RCS(source, dest)
         if self.paths_count == 0: 
             print("No possible paths")
         else: 

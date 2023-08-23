@@ -3,11 +3,14 @@ import os
 import timeit
 import matplotlib.pyplot as plt
 
+#?MAIN-PROGRAM----------------------------------------------------------------------
 def run(file_path: str):
     graph = Graph.read_matrix(file_path)
     print(graph)
+    graph.print_paths_RCS(0,3)
     graph.print_hamilton_paths()
 
+#?For-execution-time----------------------------------------------------------------
 time_run = []
 test_files = sorted(os.listdir("lab2/test_case"))[0:1]
 for test_file in test_files:
