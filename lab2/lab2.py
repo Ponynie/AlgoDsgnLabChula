@@ -6,11 +6,10 @@ import matplotlib.pyplot as plt
 def run(file_path: str):
     graph = Graph.read_matrix(file_path)
     print(graph)
-    graph.print_paths_DFS(0,3)
-    graph.print_paths_RCS(0,3)
+    graph.print_hamilton_paths()
 
 time_run = []
-test_files = sorted(os.listdir("lab2/test_case"))[4:5]
+test_files = sorted(os.listdir("lab2/test_case"))[0:1]
 for test_file in test_files:
     file_path = f"lab2/test_case/{test_file}"
     time_run.append(timeit.timeit("run(file_path)", globals=globals(), number=1))

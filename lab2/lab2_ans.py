@@ -72,7 +72,7 @@ def printAllHamiltonianPaths(g, v, visited, path, N):
 
 # main
 
-f = open("lab2/test_case/2.1.5.txt","r")  
+f = open("lab2/test_case/2.1.1.txt","r")  
 N = 0
 edges = []
 for i in f:
