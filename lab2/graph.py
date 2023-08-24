@@ -36,33 +36,33 @@ class Graph():
         return self.size
     
     #?utility-method-------------------------------------------------------------------------
-    def _vertices_adjacent_to(self, vertex: int) -> list:
-        return [i for i in range(self.size) if self.matrix[vertex][i] != 0]
+    def _vertices_adjacent_to(self, vertex: int) -> list: #*HELPLER (P1)
+        return [i for i in range(self.size) if self.matrix[vertex][i] != 0] #return a list of vertices adjacent to the given vertex
     
-    def _path_exist(self, path: tuple) -> bool:
-        for i in range(len(path)-1):
-            if self.matrix[path[i]][path[i+1]] == 0:
-                return False
-        return True
+    def _path_exist(self, path: tuple) -> bool: #*HEPLER (P2)
+        for i in range(len(path)-1): #for each pair of vertices in the path
+            if self.matrix[path[i]][path[i+1]] == 0:  #if there is no edge between the pair of vertices
+                return False 
+        return True 
             
     #?recursive-hepler-method----------------------------------------------------------------
-    def _print_paths_RCS(self, current: int, dest: int) -> None:
-        self.path.append(current)
-        self.was_visited[current] = True
-        if current == dest: 
+    def _print_paths_RCS(self, current: int, dest: int) -> None: #*RECURSIVE HEPLER (P1)
+        self.path.append(current) #add current vertex to the path
+        self.was_visited[current] = True #mark current vertex as visited
+        if current == dest: #if current vertex is the destination vertex
             print(f"{tuple(self.path)}")
             self.paths_count += 1
             self.path.pop()
             self.was_visited[current] = False
-            return
+            return #return to the previous call
         
-        for vertex in self._vertices_adjacent_to(current):
-            if not self.was_visited[vertex]:
-                self._print_paths_RCS(vertex, dest)
+        for vertex in self._vertices_adjacent_to(current): #for each vertex adjacent to current vertex
+            if not self.was_visited[vertex]: #if the vertex has not been visited
+                self._print_paths_RCS(vertex, dest) #recursively call the method
         
-        self.path.pop()
-        self.was_visited[current] = False
-        return
+        self.path.pop() #remove current vertex from the path
+        self.was_visited[current] = False #mark current vertex as unvisited
+        return #return to the previous call
         
     def _print_hamilton_paths_RCS(self, current: int) -> None:
         self.path.append(current)
@@ -123,14 +123,14 @@ class Graph():
         else: 
             print(f"{paths_count} paths")
     
-    def print_paths_RCS(self, source: int, dest: int) -> None: #O((n-2)!)
+    def print_paths_RCS(self, source: int, dest: int) -> None: #O((n-2)!) #*MAIN (P1)
         print(f"All paths from V{source} to V{dest} using Recursive method: ")
         if source == dest:
             print(f"0 paths, already in V{source}")
             return
-        self.was_visited = np.zeros(self.size, dtype = bool)
+        self.was_visited = np.zeros(self.size, dtype = bool) #boolean array to check if a vertex has been visited [False, False, ...]
         self.paths_count = 0
-        self.path = deque()
+        self.path = deque() #use stack to track the path
         self._print_paths_RCS(source, dest)
         if self.paths_count == 0: 
             print("No possible paths")
@@ -138,11 +138,11 @@ class Graph():
             print(f"{self.paths_count} paths")
         del self.was_visited; del self.paths_count; del self.path
         
-    def print_hamilton_paths(self) -> None: #O(n*n!)
+    def print_hamilton_paths(self) -> None: #O(n*n!) #*MAIN (P2)
         print(f"All Hamiltonian paths: ")
         paths_count = 0
-        possible_hamilton_paths = itertools.permutations(range(self.size))
-        for path in possible_hamilton_paths:
+        possible_hamilton_paths = itertools.permutations(range(self.size)) #all possible permutations of vertices [1, 2, 0], [2, 1, 0], ...
+        for path in possible_hamilton_paths: 
             if self._path_exist(path): 
                 print(path)
                 paths_count += 1
@@ -155,7 +155,7 @@ class Graph():
     def print_hamilton_paths_RCS(self) -> None: #O(n*n!):
         print(f"All Hamiltonian paths: ")
         self.paths_count = 0
-        self.was_visited = np.zeros(self.size, dtype = bool)
+        self.was_visited = np.zeros(self.size, dtype = bool) #boolean array to check if a vertex has been visited [False, False, ...]
         self.path = deque()
         
         for start_vertex in range(self.size):
