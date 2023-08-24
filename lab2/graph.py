@@ -64,6 +64,24 @@ class Graph():
         self.was_visited[current] = False
         return
         
+    def _print_hamilton_paths_RCS(self, current: int) -> None:
+        self.path.append(current)
+        self.was_visited[current] = True
+        if len(self.path) == self.size:
+            print(f"{tuple(self.path)}")
+            self.paths_count += 1
+            self.path.pop()
+            self.was_visited[current] = False
+            return
+        
+        for vertex in self._vertices_adjacent_to(current):
+            if not self.was_visited[vertex]:
+                self._print_hamilton_paths_RCS(vertex)
+                
+        self.path.pop()
+        self.was_visited[current] = False
+        return
+        
     #?main-method----------------------------------------------------------------------------
     def print_paths_DFS(self, source: int, dest: int) -> None: #O((n-2)!)
         print(f"All paths from V{source} to V{dest} using Depth-first-search method: ")
@@ -133,3 +151,18 @@ class Graph():
             print("No Hamiltonian paths exist in the graph")
         else: 
             print(f"{paths_count} Hamiltonian paths")
+            
+    def print_hamilton_paths_RCS(self) -> None: #O(n*n!):
+        print(f"All Hamiltonian paths: ")
+        self.paths_count = 0
+        self.was_visited = np.zeros(self.size, dtype = bool)
+        self.path = deque()
+        
+        for start_vertex in range(self.size):
+            self._print_hamilton_paths_RCS(start_vertex)
+            
+        if self.paths_count == 0: 
+            print("No possible paths")
+        else: 
+            print(f"{self.paths_count} paths")
+        del self.was_visited; del self.paths_count; del self.path

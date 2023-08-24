@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def run(file_path: str):
     graph = Graph.read_matrix(file_path)
     print(graph)
-    graph.print_paths_RCS(0,3)
+    graph.print_hamilton_paths_RCS()
     graph.print_hamilton_paths()
 
 #?For-execution-time----------------------------------------------------------------
