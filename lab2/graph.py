@@ -141,7 +141,7 @@ class Graph():
     def print_hamilton_paths(self) -> None: #O(n*n!) #*MAIN (P2)
         print(f"All Hamiltonian paths: ")
         paths_count = 0
-        possible_hamilton_paths = itertools.permutations(range(self.size)) #all possible permutations of vertices [1, 2, 0], [2, 1, 0], ...
+        possible_hamilton_paths = itertools.permutations(range(self.size)) #all possible permutations of vertices [(1, 2, 0), (2, 1, 0), ...]
         for path in possible_hamilton_paths: 
             if self._path_exist(path): 
                 print(path)
