@@ -138,21 +138,32 @@ class Graph():
             print(f"{self.paths_count} paths")
         del self.was_visited; del self.paths_count; del self.path
         
-    def print_hamilton_paths(self) -> None: #O(n*n!) #*MAIN (P2)
-        print(f"All Hamiltonian paths: ")
+    def print_hamiltons(self) -> None: #O(n*n!) #*MAIN (P2)
+        print(f"All Hamiltonian paths/cycle: ")
         paths_count = 0
+        cycle_count = 0
         possible_hamilton_paths = itertools.permutations(range(self.size)) #all possible permutations of vertices [(1, 2, 0), (2, 1, 0), ...]
         for path in possible_hamilton_paths: 
-            if self._path_exist(path): 
-                print(path)
-                paths_count += 1
-                
+            if self._path_exist(path):
+                if path[0] in self._vertices_adjacent_to(path[-1]) or  path[-1] in self._vertices_adjacent_to(path[0]):
+                    print(f"Cycle: {path}")
+                    cycle_count += 1
+                else:
+                    print(f"Path: {path}")
+                    print(f"Suggested edge to complete the cycle: ({path[0]}, {path[-1]})")
+                    paths_count += 1
         if paths_count == 0: 
             print("No Hamiltonian paths exist in the graph")
         else: 
             print(f"{paths_count} Hamiltonian paths")
             
+        if cycle_count == 0:
+            print("No Hamiltonian cycle exist in the graph")
+        else:
+            print(f"{cycle_count} Hamiltonian cycle")
+            
     def print_hamilton_paths_RCS(self) -> None: #O(n*n!):
+        
         print(f"All Hamiltonian paths: ")
         self.paths_count = 0
         self.was_visited = np.zeros(self.size, dtype = bool) #boolean array to check if a vertex has been visited [False, False, ...]
@@ -166,3 +177,5 @@ class Graph():
         else: 
             print(f"{self.paths_count} paths")
         del self.was_visited; del self.paths_count; del self.path
+        
+        
