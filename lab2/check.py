@@ -72,7 +72,7 @@ def printAllHamiltonianPaths(g, v, visited, path, N):
 
 # main
 
-f = open("lab2/test_case/2.1.1.txt","r")  
+f = open("lab2/test_case/Extra/2.2.6.txt","r")  
 N = 0
 edges = []
 for i in f:
@@ -83,7 +83,7 @@ for i in f:
     N+=1
 g = Graph(edges, N) # create object g which is Graph class  
 # find path(u,v)
-s = 0 ; d = 3
+s = 0 ; d = 6
 print ("Following are all different paths from % d to % d :" %(s, d)) 
 g.printAllPaths(s, d)
 
