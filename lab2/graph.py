@@ -51,7 +51,7 @@ class Graph():
         self.was_visited[current] = True #mark current vertex as visited
         if current == dest: #if current vertex is the destination vertex
             print(f"{tuple(self.path)}")
-            self.paths_count += 1
+            self.paths_count += 1 
             self.path.pop()
             self.was_visited[current] = False
             return #return to the previous call
