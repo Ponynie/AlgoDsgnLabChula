@@ -1,4 +1,4 @@
-f = open("3.3.1.txt","r")  
+f = open("lab3/test.txt","r")  
 array = []
 a = f.readline().strip()
 for i in a:
