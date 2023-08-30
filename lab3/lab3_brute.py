@@ -24,9 +24,9 @@ for i in range(1, len(car) + 1): #generate all possible configurations
     passenger_i_combinations = list(itertools.combinations(passenger, i)) #generate all possible combinations of passengers when choose i passengers
     for car_i_permutation in car_i_permutations: 
         for passenger_i_combination in passenger_i_combinations: #for each permutation of cars and each combination of passengers
-            configuration = [(car_i_permutation[i], passenger_i_combination[i]) for i in range(len(car_i_permutation))]
-            if configuration_is_possible(configuration, distance): #check if configuration is possible
-                solutions.append(configuration) #add configuration to list of solutions
+            configuration = [(car_i_permutation[i], passenger_i_combination[i]) for i in range(len(car_i_permutation))] #create configuration
+            if configuration_is_possible(configuration, distance): #check if the configuration is possible
+                solutions.append(configuration) #add the configuration to list of solutions
             
                 
 for solution in solutions:
