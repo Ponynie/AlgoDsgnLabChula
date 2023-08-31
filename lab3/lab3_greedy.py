@@ -18,7 +18,7 @@ for element in range(len(data)):
         if car + distance > len(data) - 1: right_bound = len(data) - 1
         else: right_bound = car + distance
         
-        while passenger_found == False and left_bound != car:
+        while passenger_found == False and left_bound != len(data):
             if data[left_bound] == "P":
                 data[left_bound] = "X"
                 data[car] = "X"
@@ -28,7 +28,7 @@ for element in range(len(data)):
                 max_passenger += 1
             elif data[left_bound] == "G" or data[left_bound] == "X":
                 left_bound += 1
-        
+        '''
         while passenger_found == False and right_bound != car:
             if data[right_bound] == "P":
                 data[right_bound] = "X"
@@ -39,7 +39,7 @@ for element in range(len(data)):
                 max_passenger += 1
             elif data[right_bound] == "G" or data[right_bound] == "X":
                 right_bound -= 1
-          
+        ''' 
 print("----------------------------------------------------------------------------")        
 print(f"Greedy solution: {greedy_solution}\nMax: {max_passenger} passengers")
 print("----------------------------------------------------------------------------")  

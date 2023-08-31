@@ -2,7 +2,7 @@ import itertools
 from progress.bar import IncrementalBar
 from math import factorial
 
-file_path = "lab3/test_case/test.txt"
+file_path = "lab3/test_case/3.2.1.txt"
 
 with open(file_path, 'r') as file: #read file
     first_line = file.readline().strip() 
