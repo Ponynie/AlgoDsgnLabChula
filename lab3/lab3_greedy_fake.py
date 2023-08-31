@@ -1,5 +1,5 @@
 
-file_path = "lab3/test_case/test.txt"
+file_path = "lab3/test_case/3.1.3.txt"
 
 with open(file_path, 'r') as file: #read file
     first_line = file.readline().strip() 

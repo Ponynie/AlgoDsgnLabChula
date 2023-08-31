@@ -1,5 +1,6 @@
 import itertools
 from progress.bar import IncrementalBar
+from math import factorial
 
 file_path = "lab3/test_case/test.txt"
 
@@ -19,9 +20,14 @@ def configuration_is_possible(configuration, distance): #function to check if co
             return False 
     return True
 
-bar = IncrementalBar('Processing', max = len(cars))
+num_operation = 0
+for i in range(1, len(cars) + 1):
+    ng = len(cars)
+    np = len(passengers)
+    if np - i < 0: continue
+    num_operation += (factorial(ng)/factorial(ng-i)) * (factorial(np)/(factorial(np-i) * factorial(i)))
 
-
+bar = IncrementalBar('Processing', max = num_operation)
 
 solutions = [] #list of solutions
 
@@ -33,7 +39,7 @@ for i in range(1, len(cars) + 1): #generate all possible configurations
             configuration = [(car_i_choice[k], passenger_i_choice[k]) for k in range(len(car_i_choice))] #create configuration
             if configuration_is_possible(configuration, distance): #check if the configuration is possible
                 solutions.append(configuration) #add the configuration to list of solutions
-    bar.next()
+            bar.next()
 bar.finish()
         
 print("----------------------------------------------------------------------------")                
