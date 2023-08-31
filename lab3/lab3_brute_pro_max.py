@@ -56,5 +56,6 @@ else:
     max_passenger_value = len(solutions[0]) 
     #number of solutions with max number of passengers
     number_max_solution = len(solutions) 
-    print(f"Number of all maximum solutions: {number_max_solution}, Maximum number of passenger: {max_passenger_value}") #print number of solutions with max number of passengers
+    #print number of solutions with max number of passengers
+    print(f"Number of all maximum solutions: {number_max_solution}, Maximum number of passenger: {max_passenger_value}") 
 print("----------------------------------------------------------------------------")

@@ -81,4 +81,4 @@ def grabNgub(arr,k):
     if len(list(possibility)) > 0 : return max(list(possibility))
     else: return 0
     
-print(grabNgub(list("GPPGPGGPGGPPGGPPPPPGG"), 2))
+print(grabNgub(list("GGPPGGGGPPPG"), 3))
