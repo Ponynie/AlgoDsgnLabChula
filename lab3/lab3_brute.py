@@ -1,7 +1,7 @@
 import itertools
 from progress.bar import IncrementalBar
 
-file_path = "lab3/test_case/3.5.1.txt"
+file_path = "lab3/test_case/test.txt"
 
 with open(file_path, 'r') as file: #read file
     first_line = file.readline().strip() 
@@ -10,8 +10,8 @@ with open(file_path, 'r') as file: #read file
     distance = int(second_line) 
 
 #separate data into two lists: passenger and car, each element in lists is the position of P/G in the data
-passenger = [i for i in range(len(data)) if data[i] == 'P'] 
-car = [i for i in range(len(data)) if data[i] == 'G'] 
+passengers = [i for i in range(len(data)) if data[i] == 'P'] 
+cars = [i for i in range(len(data)) if data[i] == 'G'] 
 
 def configuration_is_possible(configuration, distance): #function to check if configuration is possible
     for pair in configuration:
@@ -19,13 +19,15 @@ def configuration_is_possible(configuration, distance): #function to check if co
             return False 
     return True
 
-bar = IncrementalBar('Processing', max = len(car))
+bar = IncrementalBar('Processing', max = len(cars))
+
+
 
 solutions = [] #list of solutions
 
-for i in range(1, len(car) + 1): #generate all possible configurations
-    car_i_permutations = list(itertools.permutations(car, i)) #generate all possible permutations of cars when choose i cars
-    passenger_i_combinations = list(itertools.combinations(passenger, i)) #generate all possible combinations of passengers when choose i passengers
+for i in range(1, len(cars) + 1): #generate all possible configurations
+    car_i_permutations = list(itertools.permutations(cars, i)) #generate all possible permutations of cars when choose i cars
+    passenger_i_combinations = list(itertools.combinations(passengers, i)) #generate all possible combinations of passengers when choose i passengers
     for car_i_choice in car_i_permutations: 
         for passenger_i_choice in passenger_i_combinations: #for each permutation of cars and each combination of passengers
             configuration = [(car_i_choice[k], passenger_i_choice[k]) for k in range(len(car_i_choice))] #create configuration
