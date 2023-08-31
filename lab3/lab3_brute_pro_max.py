@@ -2,7 +2,7 @@ import itertools
 from progress.bar import IncrementalBar
 from math import factorial
 
-file_path = "lab3/test_case/3.3.1.txt"
+file_path = "lab3/test_case/3.5.2.txt"
 
 with open(file_path, 'r') as file: #read file
     first_line = file.readline().strip() 
@@ -24,7 +24,17 @@ def configuration_is_possible(configuration, distance):
 solutions = []
 
 #generate all possible configurations from the top down maner
-for i in range(len(cars), 0, -1): 
+for i in range(len(cars), 0, -1):
+    
+    #calculate number of operations
+    ng = len(cars)
+    np = len(passengers)
+    if np - i < 0: 
+        num_operation = 0
+    else: 
+        num_operation = (factorial(ng)/factorial(ng-i)) * (factorial(np)/(factorial(np-i) * factorial(i)))
+    bar = IncrementalBar(f'{i} Passenger Testing..', max = num_operation) 
+    
     #generate all possible permutations of cars when choose i cars
     car_i_permutations = list(itertools.permutations(cars, i)) 
     #generate all possible combinations of passengers when choose i passengers
@@ -38,8 +48,13 @@ for i in range(len(cars), 0, -1):
             if configuration_is_possible(configuration, distance): 
                 #add the configuration to list of solutions
                 solutions.append(configuration) 
+            
+            bar.next()
+    bar.finish()
     #if there is at least one solution, break the loop (the solutions will be the solution with max number of passengers)
-    if solutions != []: break
+    if solutions != []: 
+        print(f"Found solution with {i} passengers")
+        break
     
         
 print("----------------------------------------------------------------------------")                
