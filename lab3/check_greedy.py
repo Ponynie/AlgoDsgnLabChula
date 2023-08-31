@@ -1,52 +1,38 @@
-f = open("lab3/test_case/3.1.3.txt","r")  
-array = []
-a = f.readline().strip()
-for i in a:
-    array.append(i)
-k = int(f.readline())
-f.close()
+def grabNgub(arr, k):
+    i = 0
+    l = 0
+    r = 0
+    res = 0
+    Pass = []
+    Grab = []
+ 
+    while i < len(arr):
+        if arr[i] == 'G':
+            Grab.append(i)
+        elif arr[i] == 'P':
+            Pass.append(i)
+        i += 1
+ 
+    while l < len(Pass) and r < len(Grab):
 
-# Greedy technique
-output = 0
-for i in range(len(array)):
-    n = 0
-    found = False
-    if array[i] == 'G':
-        if i-k < 0:
-            a = 0
+        if (abs( Pass[l] - Grab[r] ) <= k):
+            res += 1
+            l += 1
+            r += 1
+
+        elif Pass[l] < Grab[r]:
+            l += 1
         else:
-            a = i-k
-        if i+k > len(array)-1:
-            b = len(array)-1
-        else:
-            b = i+k
-        r = b-a
-        while n < r and found == False: 
-             
-            if n % 2 == 0 and a != i: 
-                if array[a] == 'P':
-                    array[a] = None
-                    output=output+1
-                    found = True  # if 'G' can find 'P' then break
-                a=a+1
-            elif n % 2 != 0 and a!= i:
-                if array[a] == 'P':
-                    array[a] = None
-                    output=output+1
-                    found = True  
-                a=a+1
-            elif n % 2 == 0 and b!= i:
-                if array[b] == 'P':
-                    array[b] = None
-                    output=output+1
-                    found = True
-                b=b-1
-            elif n % 2 != 0 and b!= i:
-                if array[b] == 'P':
-                    array[b] = None
-                    output=output+1
-                    found = True
-                b=b-1 
-             
-            n=n+1       
-print("output:",output)
+            r += 1
+ 
+    return res
+
+
+file_path = "lab3/test_case/3.5.3.txt"
+with open(file_path, 'r') as file: #read file
+    first_line = file.readline().strip() 
+    data = list(first_line) 
+    second_line = file.readline().strip()  
+    distance = int(second_line) 
+
+print(grabNgub(data, distance))
