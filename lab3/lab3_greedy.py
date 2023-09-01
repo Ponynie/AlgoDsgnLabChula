@@ -34,7 +34,7 @@ def greedy_solution(file_path):
         print("----------------------------------------------------------------------------------------------------------------")  
 
 #'''
-path = "/Users/ponynie/Documents/Python_Code/AlgoDsgnLabChula/lab3/test_case"
+path = "lab3/test_case/Extra"
 time_run = []
 test_files = sorted(os.listdir(path))[:]
 for test_file in test_files:

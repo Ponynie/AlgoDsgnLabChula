@@ -77,11 +77,13 @@ def grabNgub(arr,k):
     pairs = generatePair(adj)
     #print(pairs)
     possibility = generatePossibility(pairs)
-    print(possibility)
+    #print(possibility)
+    for i in possibility[5]:
+        print(i)
     if len(list(possibility)) > 0 : return max(list(possibility))
     else: return 0
     
-file_path = "lab3/test_case/3.5.3.txt"
+file_path = "lab3/test_case/normal/3.1.2.txt"
 with open(file_path, 'r') as file: #read file
     first_line = file.readline().strip() 
     data = list(first_line) 
