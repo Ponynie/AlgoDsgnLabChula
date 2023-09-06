@@ -156,7 +156,7 @@ def greedy_solution_left_first_inward_scan(file_path):
                         
 
 #'''
-path = "/Users/ponynie/Documents/Python_Code/AlgoDsgnLabChula/lab3/test_case/normal"
+path = "lab3/test_case/normal"
 time_run = []
 test_files = sorted(os.listdir(path))[:]
 for test_file in test_files:
