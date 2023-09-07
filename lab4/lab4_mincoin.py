@@ -1,6 +1,6 @@
 from math import inf
 
-file_path = "lab4/test_case/4.1.txt"
+file_path = "lab4/test_case/4.3.txt"
 
 with open(file_path, 'r') as file: 
     amount = int(file.readline().strip())
@@ -30,4 +30,4 @@ def _min_coin_change(amount: int, denominations: set, lookup: dict) -> int:
         lookup[amount] = min(candidates)
         return min(candidates)
         
-print(min_coin_change(10, {2,3,9}))
+print(min_coin_change(30, {3, 5, 9, 10, 11, 12}))
