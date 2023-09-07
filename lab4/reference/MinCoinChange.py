@@ -36,7 +36,7 @@ def count(coins, Arraylength, amount):
     print("Minimum of Coin is " + str(table[Arraylength][amount]))
     print(minResult)
 # Driver program to test above function 
-f = open("lab4/test_case/4.3.txt","r")  
+f = open("lab4/test_case/4.5.txt","r")  
 coins = []
 amount = int(f.readline())
 a = f.readline().strip().split(" ")
