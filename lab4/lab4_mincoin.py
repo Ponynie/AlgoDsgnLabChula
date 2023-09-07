@@ -1,10 +1,10 @@
 from math import inf
 
-file_path = "lab4/test_case/4.3.txt"
+file_path = "lab4/test_case/4.1.txt"
 
 with open(file_path, 'r') as file: 
     amount = int(file.readline().strip())
-    denominations = set(file.readline().strip().split(sep = " "))
+    denominations = set(map(int, file.readline().strip().split(sep = " ")))
     
 
 def min_coin_change(amount: int, denominations: set) -> int:
@@ -13,7 +13,7 @@ def min_coin_change(amount: int, denominations: set) -> int:
 
 
 def _min_coin_change(amount: int, denominations: set, lookup: dict) -> int:
-    if amount in lookup:
+    if amount in lookup.keys():
         return lookup[amount]
     
     if amount in denominations:
@@ -30,4 +30,4 @@ def _min_coin_change(amount: int, denominations: set, lookup: dict) -> int:
         lookup[amount] = min(candidates)
         return min(candidates)
         
-print(min_coin_change(30, {3, 5, 9, 10, 11, 12}))
+print("Minimum coins required is" ,min_coin_change(amount, denominations))
