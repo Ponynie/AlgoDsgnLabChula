@@ -19,7 +19,7 @@ def count(coins, Arraylength, amount):
            
     return table[amount][Arraylength-1] 
 # Driver program to test above function 
-f = open("4.1.txt","r")  
+f = open("lab4/test_case/4.14(Extra).txt","r")  
 coins = []
 amount = int(f.readline())
 a = f.readline().strip().split(" ")

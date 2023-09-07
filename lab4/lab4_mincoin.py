@@ -12,9 +12,7 @@ with open(file_path, 'r') as file:
 def min_coin_change_topdown(amount: int, denominations: set) -> int:
     if amount < min(denominations):
         return inf
-    
-    amount_index = amount + 1
-    min_value = np.full(amount_index, None)
+    min_value = np.full(amount + 1, None)
     return _min_coin_change(amount, denominations, min_value)
 
 def _min_coin_change(amount: int, denominations: set, min_value: np.array) -> int:
