@@ -36,36 +36,49 @@ def _min_coin_change(amount: int, denominations: set, min_value: np.array) -> in
         return min_value[amount]
 
 def min_coin_change_bottomup(amount: int, denominations: set) -> int:
-    if amount < min(denominations): 
+     #If amount is less than the smallest denomination, then it is impossible to make change
+    if amount < min(denominations):
         return inf
+    #Store the solution for each amount
+    min_solution = np.full(amount + 1, None) 
+    #Store the minimum number of coins for each amount
+    min_value = np.full(amount + 1, None) 
     
-    min_solution = np.full(amount + 1, None)
-    min_value = np.full(amount + 1, None)
-    
-    for k in range(1, amount + 1):
-        if k < min(denominations):
+    #Iterate through each amount
+    for k in range(1, amount + 1): 
+        #If amount is less than the smallest denomination, then it is impossible to make change
+        if k < min(denominations): 
             min_value[k] = inf
-        elif k in denominations:
-            min_value[k] = 1
+        #If amount is a denomination, then the minimum number of coins is 1
+        elif k in denominations: 
+            #Store the minimum number of coins for each amount
+            min_value[k] = 1 
+            #Store the solution for each amount
             min_solution[k] = [k,]
-        else:
-            candidates_value = []
+        #If amount is not a denomination, then the minimum number of coins is the minimum number of coins for the sum of two sub-amounts
+        else: 
+            candidates_value = [] 
             candidates_solution = []
-            for i in range(1, int(k/2 + 1)):
-                candidate = min_value[i] + min_value[k - i]
-                candidates_value.append(candidate)
-                
-                if min_solution[i] is None or min_solution[k - i] is None:
+            #Iterate through each sub-amount less than k
+            for i in range(1, int(k/2 + 1)): 
+                #Calculate the minimum number of coins for the sum of two sub-amounts
+                candidate = min_value[i] + min_value[k - i] 
+                #Store the minimum number of coins for the sum of two sub-amounts
+                candidates_value.append(candidate) 
+                #If there is no solution for one of the sub-amounts, then there is no solution for the sum of two sub-amounts
+                if min_solution[i] is None or min_solution[k - i] is None: 
                     continue
+                #Store the solution for the sum of two sub-amounts
                 else:
-                    candidate = min_solution[i] + min_solution[k - i]
+                    candidate = min_solution[i] + min_solution[k - i] 
                     candidates_solution.append(candidate)
-                
-            min_value[k] = min(candidates_value)
-            
+            #Store the minimum number of coins for each amount    
+            min_value[k] = min(candidates_value) 
+            #If there is no solution for the sum of two sub-amounts, then there is no solution for the amount
             if len(candidates_solution) == 0: 
                 min_solution[k] = None
-            else:
+            #If there is a solution for the sum of two sub-amounts, then store the minimun solution for the amount
+            else: 
                 min_solution[k] = [solution for solution in candidates_solution if len(solution) == min_value[k]][0]
     print("The min solution is", min_solution[amount], "(using bottom-up approach)")        
     return min_value[amount]
