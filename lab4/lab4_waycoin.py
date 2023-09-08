@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 
-file_path = "lab4/test_case/4.4.txt"
+file_path = "lab4/test_case/4.1.txt"
 
 with open(file_path, 'r') as file: 
     amount = int(file.readline().strip())
