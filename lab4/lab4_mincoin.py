@@ -64,16 +64,6 @@ def min_coin_change_bottomup(amount: int, denominations: set) -> int:
     print("The min solution is", min_solution[amount], "(using bottom-up approach)")        
     return min_value[amount]
 
-"""
-This Python function min_coin_change_bottomup calculates the minimum number of coins required to make change for a given amount using a set of denominations. 
-It employs a bottom-up dynamic programming approach to iteratively find the optimal solution. 
-The code initializes two NumPy arrays to store the minimum number of coins required for each amount and the corresponding solutions. 
-It then iterates through each amount, considering three scenarios: when the amount is less than the smallest denomination (resulting in an impossibility to make change), 
-when the amount is a denomination (requiring only one coin), and when the amount is not a denomination (where it calculates the minimum number of coins needed by summing sub-amounts). 
-The function outputs both the minimum number of coins required for the given amount and the specific coins used to achieve this minimum (stored in min_solution), 
-providing a solution using the bottom-up dynamic programming approach.
-"""
-
 #?MAIN--------------------------------------------------------------------------------------------- 
 
 try: 
