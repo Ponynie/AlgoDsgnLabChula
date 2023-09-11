@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 
-file_path = "lab4/test_case/4.1.txt"
+file_path = "lab4/test_case/4.0.txt"
 
 with open(file_path, 'r') as file: 
     amount = int(file.readline().strip())
@@ -56,7 +56,7 @@ def ways_coin_change_bottomup(amount: int, denominations: list) -> int:
         for m in range(1, amount + 1):
             ways_value[denomidex][m] = ways_value[denomidex - 1][m] + ways_value[denomidex][m - denominations[denomidex]]
             #construct the solution and saved in global variable
-            solution_filled(denomidex, m)
+            #solution_filled(denomidex, m)
     return int(ways_value[len(denominations) - 1][amount])
 
 #?MAIN---------------------------------------------------------------------------------------------------
