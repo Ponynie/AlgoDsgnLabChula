@@ -33,12 +33,12 @@ def print_solution(i: int, k: int, solution_table: np.ndarray):
 def main(path):
     with open(path, 'r') as f:
         point_num = int(f.readline())
-        points = [tuple(map(int, f.readline().strip().split(" "))) for _ in range(point_num)]
+        points = [tuple(map(float, f.readline().strip().split(" "))) for _ in range(point_num)]
         value_table = np.zeros((point_num, point_num))
         value_solution = np.full((point_num, point_num), None)
         cost_triangulate(0, point_num - 1, points, value_table, value_solution)
         print(value_table[0][point_num - 1])
         print_solution(0, point_num - 1, value_solution)
 
-file_path = "lab5/test_case/test.txt"
+file_path = "lab5/test_case/1.1.txt"
 main(file_path)
