@@ -1,7 +1,6 @@
 import numpy as np
 from math import atan2, dist
 
-
 def ensure_positive_oriented(pointsArray: list, point_num: int): 
     central_x = sum([point[0] for point in pointsArray])/point_num
     central_y = sum([point[1] for point in pointsArray])/point_num
