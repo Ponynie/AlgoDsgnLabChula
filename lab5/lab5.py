@@ -1,6 +1,11 @@
 import numpy as np
+from math import atan2
 
-
+def ensure_positive_oriented(pointsArray: list, point_num: int):
+    central_x = sum([point[0] for point in pointsArray])/point_num
+    central_y = sum([point[1] for point in pointsArray])/point_num
+    pointsArray.sort(key = lambda point: atan2(point[1] - central_y, point[0] - central_x))
+        
 def distance(p1, p2):
     return ((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)**0.5
 
@@ -34,11 +39,16 @@ def main(path):
     with open(path, 'r') as f:
         point_num = int(f.readline())
         points = [tuple(map(float, f.readline().strip().split(" "))) for _ in range(point_num)]
+        
         value_table = np.zeros((point_num, point_num))
         value_solution = np.full((point_num, point_num), None)
+        
+        ensure_positive_oriented(points, point_num)
+        print(points)
         cost_triangulate(0, point_num - 1, points, value_table, value_solution)
+        
         print(value_table[0][point_num - 1])
         print_solution(0, point_num - 1, value_solution)
 
-file_path = "lab5/test_case/1.1.txt"
+file_path = "lab5/test_case/4.txt"
 main(file_path)
