@@ -89,7 +89,7 @@ def minPolyCost(pointData,point):
               
     return answer
 
-inputFile = open("lab5/test_case/66 (Find Second min).txt","r")
+inputFile = open("lab5/test_case/5 Extra.txt","r")
 pointAmount = int(inputFile.readline())
 pointData = []
 for i in range(pointAmount):

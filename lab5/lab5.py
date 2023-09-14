@@ -1,19 +1,17 @@
 import numpy as np
-from math import atan2
+from math import atan2, dist
 
-def ensure_positive_oriented(pointsArray: list, point_num: int):
+
+def ensure_positive_oriented(pointsArray: list, point_num: int): 
     central_x = sum([point[0] for point in pointsArray])/point_num
     central_y = sum([point[1] for point in pointsArray])/point_num
-    pointsArray.sort(key = lambda point: atan2(point[1] - central_y, point[0] - central_x))
-        
-def distance(p1, p2):
-    return ((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)**0.5
+    pointsArray.sort(key = lambda point: atan2(point[1] - central_y, point[0] - central_x)) 
 
-def weight(pointsArray, p1_idx, p2_idx, p3_idx): #calculate weight
+def weight(pointsArray, p1_idx, p2_idx, p3_idx):
     p1 = pointsArray[p1_idx]
     p2 = pointsArray[p2_idx]
     p3 = pointsArray[p3_idx] 
-    return distance(p1, p2) + distance(p2, p3) + distance(p3, p1)
+    return dist(p1, p2) + dist(p2, p3) + dist(p3, p1)
 
 def cost_triangulate(i: int, k: int ,pointsArray: list, value_table: np.ndarray, solution_table: np.ndarray):
     if value_table[i][k] > 0:
@@ -53,5 +51,5 @@ def main(path):
         print(f"\nMin-Cost: {value_table[0][point_num - 1]:.4f}")
         print("------------------------------------------------------------------------------------")
 
-file_path = "lab5/test_case/4.txt"
+file_path = "lab5/test_case/5 Extra.txt"
 main(file_path)
