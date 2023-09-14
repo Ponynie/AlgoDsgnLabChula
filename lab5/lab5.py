@@ -27,13 +27,13 @@ def cost_triangulate(i: int, k: int ,pointsArray: list, value_table: np.ndarray,
         solution_table[i][k] = candidate.index(min(candidate)) + i + 1
         return value_table[i][k]
 
-def print_solution(i: int, k: int, solution_table: np.ndarray):
+def print_solution(i: int, k: int, solution_table: np.ndarray, pointsArray: list):
     if i + 2 > k:
         return
     else:
-        print(i, solution_table[i][k], k)
-        print_solution(i, solution_table[i][k], solution_table)
-        print_solution(solution_table[i][k], k, solution_table)
+        print("△", i, solution_table[i][k], k, f"as point: {pointsArray[i]} {pointsArray[solution_table[i][k]]} {pointsArray[k]}")
+        print_solution(i, solution_table[i][k], solution_table, pointsArray)
+        print_solution(solution_table[i][k], k, solution_table, pointsArray)
 
 def main(path):
     with open(path, 'r') as f:
@@ -44,11 +44,14 @@ def main(path):
         value_solution = np.full((point_num, point_num), None)
         
         ensure_positive_oriented(points, point_num)
-        print(points)
         cost_triangulate(0, point_num - 1, points, value_table, value_solution)
         
-        print(value_table[0][point_num - 1])
-        print_solution(0, point_num - 1, value_solution)
+        print("------------------------------------------------------------------------------------")
+        print(f"Running {path}\n")
+        print(f"Ordered points: {points}\n")
+        print_solution(0, point_num - 1, value_solution, points)
+        print(f"\nMin-Cost: {value_table[0][point_num - 1]:.4f}")
+        print("------------------------------------------------------------------------------------")
 
 file_path = "lab5/test_case/4.txt"
 main(file_path)
