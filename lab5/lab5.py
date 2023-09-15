@@ -20,8 +20,8 @@ def cost_triangulate(i: int, k: int ,pointsArray: list, value_table: np.ndarray,
         return 0
     else:
         candidate = [cost_triangulate(i, j, pointsArray, value_table, solution_table) + cost_triangulate(j, k, pointsArray, value_table, solution_table) + weight(pointsArray, i, j, k) for j in range(i + 1, k)]
-        value_table[i][k] = min(candidate)
-        solution_table[i][k] = candidate.index(min(candidate)) + i + 1
+        value_table[i][k] = max(candidate)
+        solution_table[i][k] = candidate.index(max(candidate)) + i + 1
         return value_table[i][k]
 
 def print_solution(i: int, k: int, solution_table: np.ndarray, pointsArray: list):
@@ -50,5 +50,5 @@ def main(path):
         print(f"\nMin-Cost: {value_table[0][point_num - 1]:.4f}")
         print("------------------------------------------------------------------------------------")
 
-file_path = "lab5/test_case/5 Extra.txt"
+file_path = "lab5/test_case/3.txt"
 main(file_path)
