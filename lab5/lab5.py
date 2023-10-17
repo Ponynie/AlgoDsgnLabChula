@@ -50,5 +50,5 @@ def main(path):
         print(f"\nMin-Cost: {value_table[0][point_num - 1]:.4f}")
         print("------------------------------------------------------------------------------------")
 
-file_path = "lab5/test_case/2.txt"
+file_path = "lab5/test_case/2.1.txt"
 main(file_path)
