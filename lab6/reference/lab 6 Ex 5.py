@@ -73,7 +73,7 @@ class Graph:
                 else:
                     p.clear()
 
-file = open("Extra6.6.txt","r")
+file = open("lab6/test_case/Extra6.5.txt","r")
 inputData = file.readline().split() 
 while inputData[0] != "0" and inputData[1] != "0":
     g = Graph(int(inputData[0])+1)

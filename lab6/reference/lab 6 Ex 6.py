@@ -135,7 +135,7 @@ def do_fill(filename):
             print("Number of addline : ",addline)        
             print ("------------------------------")
 
-file_n="Extra6.7.txt"
+file_n="lab6/test_case/Extra6.5.txt"
 do_fill(file_n)
 
 

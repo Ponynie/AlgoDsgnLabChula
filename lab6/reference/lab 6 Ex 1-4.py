@@ -26,7 +26,7 @@ class Graph:
         self.DFSUtil(v, visited, array)
         return array    
 
-file = open("lab 6 input Demo.txt","r")
+file = open("lab6/test_case/lab 6 input Demo.txt","r")
 chk = True
 inputData = file.readline().split() 
 while inputData[0] != "0" and inputData[1] != "0":
