@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
 from collections import deque
-
+import networkx as nx
+import matplotlib.pyplot as plt
+import random
 class Graph():
     
     def __init__(self, matrix: np.ndarray):
@@ -30,6 +32,16 @@ class Graph():
     
     def __len__(self):
         return self.size
+    
+    def print_graph(self):
+        G = nx.DiGraph(self.matrix)
+        pos = nx.spring_layout(G)
+        colors = plt.cm.Set3(np.linspace(0, 1, G.number_of_nodes()))
+        random.shuffle(colors)
+        plt.figure(figsize=(15, 7))
+        nx.draw(G, pos, with_labels=True, node_color=colors, node_size = 800)
+        nx.draw_networkx_edges(G, pos, edge_color='lightgray')
+        plt.show()
     
     def get_edge(self, vertex1: int, vertex2: int) -> int:
         return self.matrix[vertex1-1][vertex2-1]
@@ -64,3 +76,41 @@ class Graph():
             else:
                 return 0
         return 1
+    
+    def kosaraju(self):
+        def dfs_first_pass(node):
+            visited[node] = True
+            for neighbor in range(self.matrix.shape[0]):
+                if not visited[neighbor] and self.matrix[node, neighbor] == 1:
+                    dfs_first_pass(neighbor)
+            stack.append(node)
+
+        def dfs_second_pass(node, component):
+            visited[node] = True
+            component.append(node)
+            for neighbor in range(self.transposed_matrix.shape[0]):
+                if not visited[neighbor] and self.transposed_matrix[node, neighbor] == 1:
+                    dfs_second_pass(neighbor, component)
+
+        num_nodes = self.matrix.shape[0]
+
+        visited = [False] * num_nodes
+        stack = []
+        for node in range(num_nodes):
+            if not visited[node]:
+                dfs_first_pass(node)
+
+        # Transpose the matrix for the second pass
+        self.transposed_matrix = np.transpose(self.matrix)
+
+        visited = [False] * num_nodes
+        strongly_connected_components = []
+
+        while stack:
+            node = stack.pop()
+            if not visited[node]:
+                component = []
+                dfs_second_pass(node, component)
+                strongly_connected_components.append(component)
+
+        return strongly_connected_components
