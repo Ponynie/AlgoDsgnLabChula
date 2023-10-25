@@ -33,13 +33,14 @@ class Graph():
     def __len__(self):
         return self.size
     
-    def print_graph(self):
+    def shown_graph(self):
         G = nx.DiGraph(self.matrix)
+        labels = {i: i + 1 for i in G.nodes()}
         pos = nx.spring_layout(G)
         colors = plt.cm.Set3(np.linspace(0, 1, G.number_of_nodes()))
         random.shuffle(colors)
         plt.figure(figsize=(15, 7))
-        nx.draw(G, pos, with_labels=True, node_color=colors, node_size = 800)
+        nx.draw(G, pos, with_labels=True, node_color=colors, node_size = 800, labels = labels)
         nx.draw_networkx_edges(G, pos, edge_color='lightgray')
         plt.show()
     

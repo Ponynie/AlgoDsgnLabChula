@@ -14,7 +14,7 @@ def lab6():
                 print(graph_obj.all_pairs_connected())
                 print(graph_obj)
                 print(graph_obj.kosaraju())
-                graph_obj.print_graph()
+                graph_obj.shown_graph()
                 print("------------------------------------")
                 
     main()
