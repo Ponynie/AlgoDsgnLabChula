@@ -3,7 +3,7 @@ import pandas as pd
 from collections import deque
 import itertools
 
-class Graph():
+class Lab2graph():
     
     #?class-default-method----------------------------------------------------------------
     def __init__(self, matrix: np.ndarray):

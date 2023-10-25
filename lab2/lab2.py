@@ -1,4 +1,4 @@
-from graph import Graph
+from graph import Lab2graph as Graph
 import os
 import timeit
 import matplotlib.pyplot as plt

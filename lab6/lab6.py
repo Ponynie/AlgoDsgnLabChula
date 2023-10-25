@@ -1,4 +1,4 @@
-import graph
+from graph import Lab6graph as Graph
 
 def lab6():
     
@@ -9,7 +9,7 @@ def lab6():
             for i in range(len(case_start_index)):
                 num_vertex, num_edge = map(int, lines[case_start_index[i]].strip().split(" "))
                 edge_array = [tuple(map(int, e.strip().split(" "))) for e in lines[case_start_index[i]+1:case_start_index[i]+num_edge+1]]
-                graph_obj = graph.Graph.construct_graph(num_vertex, edge_array)
+                graph_obj = Graph.construct_graph(num_vertex, edge_array)
                 print("------------------------------------")
                 print(graph_obj.all_pairs_connected())
                 print(graph_obj)

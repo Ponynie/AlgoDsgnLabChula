@@ -4,7 +4,7 @@ from collections import deque
 import networkx as nx
 import matplotlib.pyplot as plt
 import random
-class Graph():
+class Lab6graph():
     
     def __init__(self, matrix: np.ndarray):
         if isinstance(matrix, np.ndarray): 

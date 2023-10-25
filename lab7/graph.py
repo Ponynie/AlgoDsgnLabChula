@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
-from collections import deque
 import networkx as nx
 import matplotlib.pyplot as plt
 import random
-class Graph():
+class Lab7graph():
     
     def __init__(self, matrix: np.ndarray):
         if isinstance(matrix, np.ndarray): 
@@ -12,18 +11,17 @@ class Graph():
         else:
             self.matrix = np.array(matrix)         
         self.size = self.matrix.shape[0]
+        self.floyd_warshall()
     
     
     #!This method is for graph in lab7 specifically (USE ONLY FOR LAB6)
     @classmethod
     def construct_graph(cls, num_vertex: int, edge_array: list):
-        matrix = np.zeros((num_vertex, num_vertex), dtype = int)
+        matrix = np.full((num_vertex, num_vertex), np.inf)
+        np.fill_diagonal(matrix, 0)
         for edge in edge_array:
-            if edge[2] == 1:
-                matrix[edge[0]-1][edge[1]-1] = 1
-            elif edge[2] == 2:
-                matrix[edge[0]-1][edge[1]-1] = 1
-                matrix[edge[1]-1][edge[0]-1] = 1
+            matrix[edge[0]-1][edge[1]-1] = edge[2]
+            matrix[edge[1]-1][edge[0]-1] = edge[2]
         return cls(matrix)
         
     def __str__(self):
@@ -46,7 +44,12 @@ class Graph():
     
     def get_edge(self, vertex1: int, vertex2: int) -> int:
         return self.matrix[vertex1-1][vertex2-1]
-    
-    def vertices_adjacent_to(self, vertex: int) -> list: 
-        return [i for i in range(1, self.size+1) if self.get_edge(vertex, i) != 0] #return a list of vertices adjacent to the given vertex
          
+    def floyd_warshall(self):
+        dist = self.matrix.copy()
+        for k in range(self.size):
+            for i in range(self.size):
+                for j in range(self.size):
+                    if dist[i][j] > dist[i][k] + dist[k][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+        self.dist = dist
