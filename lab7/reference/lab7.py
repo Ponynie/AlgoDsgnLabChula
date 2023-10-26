@@ -1,6 +1,6 @@
 # Floyd Warshall Algorithm in python
-
-INF = 9999999
+import math
+INF = math.inf
 # Algorithm implementation
 def floyd_warshall(G,Lam,vertexNum):
     distance = list(map(lambda i: list(map(lambda j: j, i)), G))
@@ -40,7 +40,7 @@ def print_solution(distance,preprocessor,vertexNum):
                 print(preprocessor[i][j], end="  ")
         print(" ")
 
-file = open("7.1.txt","r")
+file = open("lab7/test_case/test.txt","r")
 inputData = file.readline().split() 
 vertexNum = int(inputData[0])
 EdgeNum = int(inputData[1])
