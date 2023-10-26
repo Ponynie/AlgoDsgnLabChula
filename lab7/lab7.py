@@ -10,7 +10,9 @@ def lab7():
             query_array = [tuple(map(int, line.strip().split())) for line in lines[num_edge+1:]]
             graph_obj = Graph.construct_graph(num_vertex, edge_array)
             for query in query_array:
-                print(f"{query} Min-decibel path: {graph_obj.get_shortest_path(*query)} decibel: {graph_obj.get_shortest_distance(*query)}")
+                #print(f"{query} Min-decibel path: {graph_obj.get_shortest_path(*query)} decibel: {graph_obj.get_shortest_distance(*query)}")
+                print(f"{query} Min-decibel path: {graph_obj.get_shortest_path(*query)} Max-decibel: {graph_obj.get_max_decibel_from_shortest_path(*query)}")
+                
                 
     main()
     print("Run successfully")
