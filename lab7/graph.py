@@ -10,11 +10,13 @@ class Lab7graph():
             self.matrix = matrix
         else:
             self.matrix = np.array(matrix) 
+        self.size = self.matrix.shape[0]
+        
         self.dist = dist
         self.prev = prev   
         self.tran = tran
-        self.size = self.matrix.shape[0]
-        self.floyd_warshall_filled()
+        if dist != None and prev != None and tran != None:
+            self.floyd_warshall_filled()
     
     
     #!This method is for graph in lab7 specifically (USE ONLY FOR LAB7)
