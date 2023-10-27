@@ -15,8 +15,7 @@ class Lab7graph():
         self.dist = dist
         self.prev = prev   
         self.tran = tran
-        if dist != None and prev != None and tran != None:
-            self.floyd_warshall_filled()
+        self.floyd_warshall_decibel()
     
     
     #!This method is for graph in lab7 specifically (USE ONLY FOR LAB7)
@@ -66,7 +65,14 @@ class Lab7graph():
                     if self.dist[i][j] > self.dist[i][k] + self.dist[k][j]:
                         self.dist[i][j] = self.dist[i][k] + self.dist[k][j]
                         self.prev[i][j] = self.prev[k][j]
-        
+    
+    def floyd_warshall_decibel(self):
+        for k in range(self.size):
+            for i in range(self.size):
+                for j in range(self.size):
+                    self.dist[i][j] = min(self.dist[i][j], max(self.dist[i][k], self.dist[k][j]))
+                    self.prev[i][j] = min(self.prev[i][j], self.prev[k][j])
+    
     def get_shortest_path(self, vertex1: int, vertex2: int) -> list:
         if self.prev[vertex1-1][vertex2-1] == np.nan:
             return "no path"

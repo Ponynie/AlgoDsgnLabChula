@@ -11,7 +11,8 @@ def lab7():
             graph_obj = Graph.construct_graph(num_vertex, edge_array)
             for query in query_array:
                 #print(f"{query} Min-decibel path: {graph_obj.get_shortest_path(*query)} decibel: {graph_obj.get_shortest_distance(*query)}")
-                print(f"{query} Min-decibel path: {graph_obj.get_shortest_path(*query)} Max-decibel: {graph_obj.get_max_decibel_from_shortest_path(*query)}")
+                #print(f"{query} Min-decibel path: {graph_obj.get_shortest_path(*query)} Max-decibel: {graph_obj.get_max_decibel_from_shortest_path(*query)}")
+                print(f"{query}: {graph_obj.get_shortest_distance(*query)}")
                 
                 
     main()
