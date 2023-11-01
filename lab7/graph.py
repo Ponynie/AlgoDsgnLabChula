@@ -26,9 +26,9 @@ class Lab7graph():
         tran = np.zeros((num_vertex, num_vertex))
         for edge in edge_array:
             matrix[edge[0]-1][edge[1]-1] = edge[2]
-            matrix[edge[1]-1][edge[0]-1] = edge[2]
+            #matrix[edge[1]-1][edge[0]-1] = edge[2]
             prev[edge[0]-1][edge[1]-1] = edge[0]
-            prev[edge[1]-1][edge[0]-1] = edge[1]
+            #prev[edge[1]-1][edge[0]-1] = edge[1]
             tran[edge[0]-1][edge[1]-1] = 1
             tran[edge[1]-1][edge[0]-1] = 1
         np.fill_diagonal(matrix, 0)
@@ -45,7 +45,7 @@ class Lab7graph():
         return self.size
     
     def shown_graph(self):
-        G = nx.DiGraph(self.matrix)
+        G = nx.Graph(self.matrix)
         labels = {i: i + 1 for i in G.nodes()}
         pos = nx.spring_layout(G)
         colors = plt.cm.Set3(np.linspace(0, 1, G.number_of_nodes()))
@@ -70,14 +70,17 @@ class Lab7graph():
         for k in range(self.size):
             for i in range(self.size):
                 for j in range(self.size):
-                    self.dist[i][j] = min(self.dist[i][j], max(self.dist[i][k], self.dist[k][j]))
-                    self.prev[i][j] = min(self.prev[i][j], self.prev[k][j])
+                    if self.dist[i][j] > max(self.dist[i][k], self.dist[k][j]):
+                        self.dist[i][j] = max(self.dist[i][k], self.dist[k][j])
+                        self.prev[i][j] = self.prev[k][j]
     
     def get_shortest_path(self, vertex1: int, vertex2: int) -> list:
         if self.prev[vertex1-1][vertex2-1] == np.nan:
             return "no path"
         path = [vertex2]
         while vertex1 != vertex2:
+            if np.isnan(self.prev[vertex1-1][vertex2-1]):
+                return "no path"
             vertex2 = int(self.prev[vertex1-1][vertex2-1])
             path.append(vertex2)
         return path[::-1]
@@ -85,8 +88,10 @@ class Lab7graph():
     def get_shortest_distance(self, vertex1: int, vertex2: int) -> int:
         return self.dist[vertex1-1][vertex2-1]
     
-    def get_max_decibel_from_shortest_path(self, vertex1: int, vertex2: int) -> int:
-        path = self.get_shortest_path(vertex1, vertex2)
-        if path == "no path":
-            return "no path"
-        return max([self.get_edge(path[i], path[i+1]) for i in range(len(path)-1)])
+    def string_dist(self):
+        data = pd.DataFrame(self.dist, index = ["V" + str(i) for i in range(1, self.size+1)], columns = ["V" + str(i) for i in range(1, self.size+1)])
+        return "Distance Matrix of the graph:\n" + data.to_string() + "\n"
+    
+    def string_prev(self):
+        data = pd.DataFrame(self.prev, index = ["V" + str(i) for i in range(1, self.size+1)], columns = ["V" + str(i) for i in range(1, self.size+1)])
+        return "Predecessor Matrix of the graph:\n" + data.to_string() + "\n"
