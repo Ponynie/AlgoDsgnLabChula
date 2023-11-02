@@ -13,7 +13,7 @@ def FindNewSequence(n):
             if s == (x[i-j] + x[i+j])/2:
                 allPair.append((s,x[i-j],x[i+j]))
     print(allPair)
-FindNewSequence(5)
+FindNewSequence(4)
 '''
 file = open("8.1.txt","r")
 inputData = int(file.readline().split())
