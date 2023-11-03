@@ -1,3 +1,5 @@
+from itertools import permutations
+
 def lab8():
     
     
@@ -6,15 +8,15 @@ def lab8():
         n = read_input(path)
         sequence = [i for i in range(0, n+1)]
         bufferDC = []
-        bufferNDC = []
+        bufferBF = []
         
         sort_sequence_DC(sequence, bufferDC)
-        sort_sequence_NDC(sequence, bufferNDC)
+        sort_sequence_BF(sequence, bufferBF)
         
         print("-"*40)
         print("n:", n)
-        print("sequence D&C:", *bufferDC, check_correctness(sequence, bufferDC))
-        #print("sequence Non-D&C:", *bufferNDC, check_correctness(sequence, bufferNDC))
+        #print("sequence DC:", *bufferDC, check_correctness(sequence, bufferDC))
+        print("sequence BF:", *bufferBF, check_correctness(sequence, bufferBF))
         print("-"*40)
         
         
@@ -52,9 +54,20 @@ def lab8():
                 return False
         return True
 
-    def sort_sequence_NDC(sequence: list, buffer) -> None:
-        pass
-    
+    def sort_sequence_BF(sequence: list, buffer: list) -> None:
+        even_perm = permutations(range(0, len(sequence), 2))
+        odd_perm = permutations(range(1, len(sequence), 2))
+        
+        for perm in tuple(even_perm):
+            if check_correctness(list(range(0, len(sequence), 2)), perm): 
+                buffer.extend(perm)
+                break
+        
+        for perm in tuple(odd_perm):
+            if check_correctness(list(range(1, len(sequence), 2)), perm):
+                buffer.extend(perm)
+                break
+
     main()
     
 lab8()
