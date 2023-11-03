@@ -6,17 +6,18 @@ def lab8():
     def main():
         path = "lab8/test_case/test.txt"
         n = read_input(path)
-        sequence = [i for i in range(0, n+1)]
+        sequence = [i for i in range(1, n+1)]
         bufferDC = []
         bufferBF = []
         
         sort_sequence_DC(sequence, bufferDC)
-        sort_sequence_BF(sequence, bufferBF)
+        #sort_sequence_BF(sequence, bufferBF)
         
         print("-"*40)
         print("n:", n)
-        #print("sequence DC:", *bufferDC, check_correctness(sequence, bufferDC))
-        print("sequence BF:", *bufferBF, check_correctness(sequence, bufferBF))
+        #print("sequence DC:", *bufferDC)
+        print("sequence DC:", *bufferDC, check_correctness(sequence, bufferDC))
+        #print("sequence BF:", *bufferBF, check_correctness(sequence, bufferBF))
         print("-"*40)
         
         
@@ -50,7 +51,7 @@ def lab8():
             x1_idx = buffer.index(condition[0])
             x2_idx = buffer.index(condition[1])
             x3_idx = buffer.index(condition[2])
-            if x1_idx < x2_idx < x3_idx:
+            if x1_idx < x2_idx < x3_idx or x1_idx > x2_idx > x3_idx:
                 return False
         return True
 
