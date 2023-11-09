@@ -5,14 +5,13 @@ def lab9():
     
     def main():
         path = "lab9/test_case/test.txt"
-        kwarg = get_input(path)
-        naive = pattern_matching(kwarg, naive_algorithm)
-        print_result(naive)
-        #kmp = pattern_matching(kwarg, KMP_algorithm)
-        #print_result(kmp)
+        kwargs = get_input(path)
+        print_result(pattern_matching(kwargs, naive_algorithm), to_csv=False)
+        print("π:", *calculate_pi(kwargs["pattern"]))
+        print_result(pattern_matching(kwargs, KMP_algorithm), to_csv=False)
 
-    def pattern_matching(kwarg: dict, matching_algorithm: Generator) -> list[tuple]:
-        set_of_alphabet = kwarg["set_of_alphabet"]; num_pattern = kwarg["num_pattern"]; num_text = kwarg["num_text"]; pattern = kwarg["pattern"]; text = kwarg["text"]
+    def pattern_matching(kwargs: dict, matching_algorithm: Generator) -> list[tuple]:
+        set_of_alphabet = kwargs["set_of_alphabet"]; num_pattern = kwargs["num_pattern"]; num_text = kwargs["num_text"]; pattern = kwargs["pattern"]; text = kwargs["text"]
         result_LR = []
         result_RL = []
         
@@ -32,9 +31,31 @@ def lab9():
                 yield s    
 
     def KMP_algorithm(set_of_alphabet: set, num_pattern: int, num_text: int, pattern: str, text: str) -> int:
-        pass
+        pi = calculate_pi(pattern)
+        j = 0
+        for i in range(num_text):
+            while j > 0 and text[i] != pattern[j]:
+                j = pi[j-1]
+            if text[i] == pattern[j]:
+                if j == num_pattern - 1:
+                    yield i - num_pattern + 1
+                    j = pi[j]
+                else:
+                    j += 1
     
-    def print_result(result: list[tuple]):
+    def calculate_pi(pattern: str) -> list[int]:
+        pi = [0] * len(pattern)
+        j = 0
+        for i in range(1, len(pattern)):
+            while j > 0 and pattern[i] != pattern[j]:
+                j = pi[j-1]
+            if pattern[i] == pattern[j]:
+                j += 1
+                pi[i] = j
+        return pi
+    
+    def print_result(result: list[tuple], to_csv: bool = False) -> None:
+        print("-"*30)
         print(len(result), "Answer(s)")
         '''
         for i in result:
@@ -42,9 +63,11 @@ def lab9():
         '''
         df = pd.DataFrame(result)
         print(df.to_string(index=False, header=False))
-        #df.to_csv("lab9/result.csv", header=["valid shift", "LR/RL"], index=False)
+        print("-"*30)
+        if to_csv: 
+            df.to_csv("lab9/result.csv", header=["valid shift", "LR/RL"], index=False)
 
-    def get_input(path):
+    def get_input(path: str) -> dict:
         with open(path, 'r') as f:
             lines = [next(f).strip() for _ in range(4)]
             lines = [tuple(i.split(" ")) for i in lines]
