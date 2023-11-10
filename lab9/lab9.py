@@ -4,29 +4,29 @@ import pandas as pd
 def lab9():
     
     def main():
-        path = "lab9/test_case/test.txt"
+        path = "lab9/test_case/9.5.txt"
         kwargs = get_input(path)
         print_result(pattern_matching(kwargs, naive_algorithm), to_csv=False)
-        print("π:", *calculate_pi(kwargs["pattern"]))
-        print_result(pattern_matching(kwargs, KMP_algorithm), to_csv=False)
+        #print("π:", *calculate_pi(kwargs["pattern"]))
+        #print_result(pattern_matching(kwargs, KMP_algorithm), to_csv=False)
 
     def pattern_matching(kwargs: dict, matching_algorithm: Generator) -> list[tuple]:
         set_of_alphabet = kwargs["set_of_alphabet"]; num_pattern = kwargs["num_pattern"]; num_text = kwargs["num_text"]; pattern = kwargs["pattern"]; text = kwargs["text"]
         result_LR = []
         result_RL = []
         
-        for i in matching_algorithm(set_of_alphabet, num_pattern, num_text, pattern, text):
-            result_LR.append((i+1, "LR"))
+        for i in matching_algorithm(set_of_alphabet, num_pattern, num_text, pattern, อะไรไม่รู้2(text)):
+            result_LR.append((i+2, "LR"))
         result_LR.sort(key = lambda x: x[0])
         
-        for i in matching_algorithm(set_of_alphabet, num_pattern, num_text, pattern, text[::-1]):
+        for i in matching_algorithm(set_of_alphabet, num_pattern, num_text, pattern, อะไรไม่รู้(text)):
             result_RL.append((num_text - i, "RL"))
         result_RL.sort(key = lambda x: x[0])
         
         return result_LR + result_RL
     
     def naive_algorithm(set_of_alphabet: set, num_pattern: int, num_text: int, pattern: str, text: str) -> int:
-        for s in range(num_text - num_pattern + 1):
+        for s in range(num_text+1):
             if pattern == text[s:s+num_pattern]:
                 yield s    
 
@@ -79,7 +79,15 @@ def lab9():
             kwarg["text"] = ''.join(lines[3])
         return kwarg
     
+    def อะไรไม่รู้(pattern: str) -> str:
+        pattern = pattern + pattern
+        pattern = pattern[::-1]
+        return pattern[:-1]
     
+    def อะไรไม่รู้2(pattern: str) -> str:
+        pattern = pattern + pattern
+        return pattern[1:]
+
     main()
     
 lab9()
