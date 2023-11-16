@@ -60,7 +60,6 @@ def lab10_3():
         solution = threeSAT_to_vertexCover(num_clause, clause_matrix)
         print_output(*solution)
 
-    
     def read_input(path: str):
         with open(path, 'r') as file:
             num_clause = int(file.readline().strip())
