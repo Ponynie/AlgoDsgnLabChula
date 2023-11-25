@@ -52,7 +52,7 @@ class Graph:
         print(K)
         
 
-file = open("2.4.txt","r")
+file = open("lab10/test_case/2.2.txt","r")
 inputData = file.readline().split()
 length = len(inputData)
 g = Graph(length)

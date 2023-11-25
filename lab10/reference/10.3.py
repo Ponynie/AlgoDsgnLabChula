@@ -90,7 +90,7 @@ def vertexCover(adjacencyMatrix, K):
         print("No")
 
 
-file = open("3.1.txt","r")
+file = open("lab10/test_case/3.2.txt","r")
 clauseNum = int(file.readline())
 clause = []
 vertexNum = 0

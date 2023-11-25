@@ -38,7 +38,7 @@ def vertexCover(adjacencyMatrix, K):
     if foundVertexCover == False:
         print("No")
     
-file = open("1.5.txt","r")
+file = open("lab10/test_case/1.5.txt","r")
 K = int(file.readline())
 inputData = file.readline().split()
 length = len(inputData)

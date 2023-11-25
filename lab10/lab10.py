@@ -1,15 +1,15 @@
 from graph import Lab10graph
 import numpy as np
 
-def lab10_1():
+def lab10_1(path: str):
     
-    def main():
-        path = "lab10/test_case/test.txt"
+    def main(path: str):
+        #path = "lab10/test_case/test.txt"
         vertexCover_size, matrix = read_input(path)
         graph_obj = Lab10graph(matrix)
         solution = graph_obj.k_vertexCover_bruteforce(vertexCover_size)
         print_output(solution)
-        #graph_obj.shown_graph()
+        graph_obj.shown_graph()
         
     def read_input(path: str) -> tuple:
         with open(path, 'r') as file:
@@ -19,7 +19,7 @@ def lab10_1():
     
     def print_output(solution: tuple) -> None:
         print("-"*50)
-        if solution == []:
+        if solution == ():
             print("No")
         else:
             print("Yes")
@@ -27,12 +27,12 @@ def lab10_1():
                 print(*i)
         print("-"*50)
     
-    main()
+    main(path)
 
-def lab10_2():
+def lab10_2(path: str):
     
-    def main():
-        path = "lab10/test_case/test.txt"
+    def main(path: str):
+        #path = "lab10/test_case/test.txt"
         matrix = read_input(path)
         graph_obj = Lab10graph(matrix)
         solution = graph_obj.min_vertexCover_approximation()
@@ -51,11 +51,12 @@ def lab10_2():
         print(len(solution))
         print("-"*50)
 
-    main()
+    main(path)
 
-def lab10_3():
-    def main():
-        path = "lab10/test_case/test.txt"
+def lab10_3(path: str):
+    
+    def main(path: str):
+        #path = "lab10/test_case/test.txt"
         num_clause, clause_matrix = read_input(path)
         solution = threeSAT_to_vertexCover(num_clause, clause_matrix)
         print_output(*solution)
@@ -114,6 +115,7 @@ def lab10_3():
             
         return (num_vertex, vertexCover_size, graph_obj, have_solution)
     
-    main()
-    
-lab10_3()
+    main(path)
+   
+for i in range(1,10):    
+    lab10_2("lab10/test_case/test.txt")
